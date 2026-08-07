@@ -1,0 +1,111 @@
+.hero {
+  position: relative;
+  min-height: calc(100svh - var(--header-h));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--ink-invert);
+  /* poster's average colour: the frame before any byte of media arrives */
+  background: #0d1617;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding-inline: var(--gutter);
+  padding-block: clamp(4rem, 12vh, 8rem);
+}
+
+.headline {
+  font-size: clamp(2.5rem, 1.22rem + 5.69vw, 6.594rem);
+  color: #ffffff;
+  overflow-wrap: break-word;
+  text-shadow: 0 2px 24px rgb(0 0 0 / 0.35);
+}
+
+.lede {
+  font-weight: 500;
+  font-size: clamp(1rem, 0.844rem + 0.69vw, 1.5rem);
+  line-height: 1.4;
+  letter-spacing: -0.042em;
+  color: #ffffff;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.readout {
+  position: absolute;
+  z-index: 2;
+  bottom: clamp(1.25rem, 4vh, 2.5rem);
+  left: var(--gutter);
+  right: var(--gutter);
+  margin-inline: auto;
+  width: max-content;
+  max-width: calc(100% - var(--gutter) * 2);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #ffffff17;
+  backdrop-filter: blur(34px);
+  /*
+    Inset rather than a border: it paints the same hairline of light along the
+    inner edge without adding 2px to the box, which would break the derived
+    24px height.
+  */
+  box-shadow: inset 0 0 8px 0 #ffffff26;
+
+  font-family: var(--font-mono-stack);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-box: trim-both cap alphabetic;
+}
+
+.readoutCity {
+  font-weight: 500;
+}
+
+.readoutFix {
+  font-weight: 400;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .primary,
+  .secondary {
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .primary:hover,
+  .secondary:hover {
+    transform: translateY(-1px);
+  }
+}

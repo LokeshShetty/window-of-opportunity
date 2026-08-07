@@ -8,13 +8,11 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-
 const body = Inter({
   variable: "--font-body-local",
   subsets: ["latin"],
   display: "swap",
 });
-
 
 const display = Saira({
   variable: "--font-display-local",
@@ -35,9 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${mono.variable} ${body.variable} ${display.variable}`}
     >
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

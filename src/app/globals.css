@@ -9,8 +9,10 @@
 
 :root {
   color-scheme: light;
-  --page: #DEE0E2;
+  --page: #dee0e2;
   --page-black: #000000;
+  /* The chrome/card black — the design keeps it a step above pure black. */
+  --surface-dark: #101010;
   --ink: #000;
   --ink-dim: #52545a;
   --ink-invert: #ffffff;
@@ -19,11 +21,12 @@
   --brand: #1539f5;
   --brand-ink: #ffffff;
 
-  --font-display: var(--font-display-local), "Arial Narrow", system-ui,
-    sans-serif;
-  --font-body: var(--font-body-local), system-ui, -apple-system, "Segoe UI",
-    sans-serif;
-  --font-mono-stack: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-display:
+    var(--font-display-local), "Arial Narrow", system-ui, sans-serif;
+  --font-body:
+    var(--font-body-local), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono-stack:
+    var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
   --header-h: 97px;
   --gutter: clamp(1.25rem, 0.85rem + 1.8vw, 3.5rem);
   --shell: 76.75rem;

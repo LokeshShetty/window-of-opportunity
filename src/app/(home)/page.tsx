@@ -11,7 +11,6 @@ import { StraightLines } from "./components/StraightLines/StraightLines";
 import { RecoverSmarter } from "./components/RecoverSmarter/RecoverSmarter";
 import { Vision } from "./components/Vision/Vision";
 
-
 export default function Home() {
   return (
     <>
