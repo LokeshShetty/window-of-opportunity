@@ -1,0 +1,148 @@
+.roadmap {
+  position: relative;
+  background: var(--page-black);
+  --rule-weight: 2px;
+  --gap: 64;
+}
+
+.panel {
+  position: relative;
+  aspect-ratio: 1513 / 950;
+  overflow: hidden;
+  view-timeline-name: --panel;
+  view-timeline-axis: block;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--y) * 1%);
+  transform: translate(calc((var(--x) - 50) * 1%), -50%);
+  display: flex;
+  justify-content: center;
+  padding-inline: var(--gutter);
+  font-family: var(--font-mono-stack);
+  font-weight: 500;
+  font-size: clamp(0.8125rem, 0.6rem + 0.955vw, 1.5rem);
+  line-height: 1.4;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.45);
+  text-box: trim-both cap alphabetic;
+}
+
+[data-debug-lines] .lineInner {
+  outline: 1px dashed rgb(255 255 255 / 0.5);
+  outline-offset: 4px;
+}
+
+.lineInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(1rem, calc(var(--gap) / 1512 * 100vw), calc(var(--gap) * 1px));
+}
+
+.inlineRule {
+  flex: 0 0 clamp(2.5rem, 10.6vw, 160px);
+  height: var(--rule-weight);
+  background: currentColor;
+}
+
+.connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.word {
+  opacity: 1;
+  transform: none;
+  text-box: trim-both cap alphabetic;
+}
+
+.inlineRule {
+  transform: none;
+}
+
+.connector {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: var(--rule-weight);
+  stroke-opacity: 1;
+  stroke-dashoffset: 0;
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.6rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rule-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .inlineRule {
+    transform-origin: left center;
+  }
+
+  @supports (animation-timeline: view()) {
+    .word,
+    .inlineRule {
+      animation-timeline: --panel;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-range: cover calc(12% + var(--tp) * 26%) cover
+        calc(30% + var(--tp) * 26%);
+    }
+
+    .word {
+      animation-name: word-in;
+    }
+
+    .inlineRule {
+      animation-name: rule-in;
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    .word {
+      --local: clamp(0, calc((var(--p) - var(--t) * 0.8) / 0.12), 1);
+      opacity: var(--local);
+      transform: translate3d(0, calc((1 - var(--local)) * 0.6rem), 0);
+    }
+
+    .inlineRule {
+      transform: scaleX(clamp(0, calc((var(--p) - var(--t) * 0.8) / 0.12), 1));
+    }
+  }
+}
