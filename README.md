@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Window of Opportunity
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 + TypeScript, plain CSS Modules. No other dependencies.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How it works
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Roadmap content and connector config live in `src/data/roadmap.ts`.
+- Word reveal is CSS scroll-driven (`view-timeline` per panel). Firefox still
+  flags `animation-timeline`, so a `--p` custom property written once per rAF
+  covers it.
+- Connector lines are measured at runtime (`getBoundingClientRect` +
+  `ResizeObserver` + `fonts.ready`) and drawn via `stroke-dashoffset` in a
+  small rAF loop — SVG paths can't carry a scroll timeline.
+- Base state is the finished state: no JS, no timeline support, or reduced
+  motion all land on the same readable page.
+- `?lines` freezes the connectors and outlines their anchors for checking
+  geometry.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## With another week
 
-## Learn More
+- Re-encode the two ambient videos (19MB of the remaining 29MB) and serve
+  AV1/WebM with H.264 fallback. They are the only assets that still hurt on a
+  throttled connection.
+- Finish the theming pass: a handful of colors are still literals. The role
+  tokens already invert the dark section by reassigning three variables, so a
+  full dark theme is mostly an audit, not a rebuild.
+- Rework the connector drawing. The words run on CSS scroll timelines, but SVG
+  paths can't carry one, so the curves use a small rAF loop. I'd prototype
+  CSS motion-path or per-segment elements to get the whole section off the
+  main thread.
+- Wire the Vision card expanders to real content panels.
 
-To learn more about Next.js, take a look at the following resources:
+## Skipped on purpose
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The Vision "+" buttons don't open anything. They're an affordance drawn in
+  the design with nothing behind it; wiring six overlays didn't serve the
+  70/30 weighting. The accordions got invented copy instead, because a plus
+  that expands to nothing reads as a bug.
+- No hamburger menu at mobile. The nav scrolls horizontally in its own track;
+  shipping a menu button without a drawer is a dead control.
+- No animation on the circle in the "straight lines" section. The brief's
+  motion requirements are the roadmap and the hero; a static ring matches the
+  comp and carries no risk.
+- Pill extras: cross-tab sync and Escape-to-close were built, then cut. A few
+  lines each, but nobody asked for them.
+- No fake booking flow or chat. Every CTA anchors to the Find Us section
+  rather than pretending a backend exists.
