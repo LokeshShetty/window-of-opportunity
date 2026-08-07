@@ -1,0 +1,132 @@
+.announcement {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklch, var(--brand), black 18%),
+    var(--brand) 30%,
+    var(--brand) 70%,
+    color-mix(in oklch, var(--brand), black 18%)
+  );
+  color: var(--brand-ink);
+  padding-inline: var(--gutter);
+  text-align: center;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.announcementText {
+  font-family: var(--font-mono-stack);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.announcementLink {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.header {
+  background: var(--surface-dark);
+  color: var(--ink-invert);
+  backdrop-filter: blur(24px);
+}
+
+.inner {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-block: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 2vw, 2rem);
+}
+
+.logo {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.nav {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.4vw, 1.5rem);
+  width: max-content;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.15rem;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+  color: var(--ink-invert-dim);
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: var(--ink-invert);
+}
+
+.badge {
+  font-family: var(--font-mono-stack);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--brand-ink);
+  line-height: 1;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  margin-inline-start: auto;
+}
+
+.cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  color: var(--ink-invert-dim);
+}
+
+.cart:hover {
+  color: var(--ink-invert);
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .navLink,
+  .cart {
+    transition: color 140ms ease;
+  }
+}
+
+@media (width < 30rem) {
+  .cart {
+    display: none;
+  }
+}
