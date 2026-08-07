@@ -8,6 +8,8 @@ npm install && npm run dev
 
 ## How it works
 
+live on - https://window-of-opportunity-rust.vercel.app/
+
 - Roadmap content and connector config live in `src/data/roadmap.ts`.
 - Word reveal is CSS scroll-driven (`view-timeline` per panel). Firefox still
   flags `animation-timeline`, so a `--p` custom property written once per rAF
