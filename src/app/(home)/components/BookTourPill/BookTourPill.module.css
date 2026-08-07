@@ -1,0 +1,141 @@
+.dock {
+  position: fixed;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  right: var(--gutter);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  max-width: calc(100vw - var(--gutter) * 2);
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 64px;
+  padding: 4px 20px 4px 4px;
+  border-radius: 16px;
+  background: #00000080;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px 0 #0000000d;
+  min-width: 0;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.label {
+  font-family: var(--font-mono-stack);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+  text-box: trim-both cap alphabetic;
+}
+
+.dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  margin-right: -12px;
+  color: rgb(255 255 255 / 0.4);
+}
+
+.dismiss:hover {
+  color: rgb(255 255 255 / 0.85);
+}
+
+.chat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 60px;
+  background: #00000080;
+  backdrop-filter: blur(10px);
+  color: rgb(255 255 255 / 0.85);
+}
+
+.chat:hover {
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pill[data-state="shown"] {
+    animation: pill-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .pill[data-state="leaving"] {
+    animation: pill-out 220ms ease-in both;
+  }
+
+  .dismiss,
+  .chat {
+    transition: color 140ms ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill[data-state="leaving"] {
+    opacity: 0;
+  }
+}
+
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pill-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(1.5rem) scale(0.97);
+  }
+}
+
+@media (width < 30rem) {
+  .pill {
+    gap: 16px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .chat {
+    width: 52px;
+    height: 52px;
+  }
+}
