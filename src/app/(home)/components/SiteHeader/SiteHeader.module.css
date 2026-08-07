@@ -57,7 +57,7 @@
   min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
-  overscroll-behavior-inline: contain;
+  overscroll-behavior-x: contain;
 }
 
 .nav::-webkit-scrollbar {
@@ -101,22 +101,21 @@
   align-items: center;
   gap: 0.75rem;
   flex-shrink: 0;
-  margin-inline-start: auto;
+  margin-left: auto;
 }
 
 .cart {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  inline-size: 2.75rem;
-  block-size: 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
   color: var(--ink-invert-dim);
 }
 
 .cart:hover {
   color: var(--ink-invert);
 }
-
 
 @media (prefers-reduced-motion: no-preference) {
   .navLink,
