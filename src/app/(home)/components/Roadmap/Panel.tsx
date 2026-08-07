@@ -1,14 +1,7 @@
 import type { CSSProperties } from "react";
 import type { RoadmapPanel } from "./types";
 import styles from "./Roadmap.module.css";
-
-type Props = {
-  panel: RoadmapPanel;
-  first: boolean;
-  wordOffset: number;
-  wordTotal: number;
-  registerLine: (id: string, el: HTMLSpanElement | null) => void;
-};
+import type { PanelProps } from "./types";
 
 export function Panel({
   panel,
@@ -16,7 +9,7 @@ export function Panel({
   wordOffset,
   wordTotal,
   registerLine,
-}: Props) {
+}: PanelProps) {
   const panelTokens = panel.lines.reduce((n, l) => n + l.tokens.length, 0);
   const lineStarts = panel.lines.map((_, i) =>
     panel.lines.slice(0, i).reduce((n, l) => n + l.tokens.length, 0),

@@ -1,0 +1,62 @@
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-block: 10px;
+  border-radius: 48px;
+
+  font-family: var(--font-mono-stack);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pill::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+}
+
+.sm {
+  padding-inline: 20px;
+}
+
+.md {
+  padding-inline: 24px;
+}
+
+.brand {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.14);
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+
+.light {
+  background: #ffffff;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pill {
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .pill:hover {
+    transform: translateY(-1px);
+  }
+}

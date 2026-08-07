@@ -31,3 +31,11 @@ export type RoadmapPanel = {
 export type Point = { x: number; y: number };
 
 export type ConnectorPath = { d: string; targetY: number };
+
+export type PanelProps = {
+  panel: RoadmapPanel;
+  first: boolean;
+  wordOffset: number;
+  wordTotal: number;
+  registerLine: (id: string, el: HTMLSpanElement | null) => void;
+};
