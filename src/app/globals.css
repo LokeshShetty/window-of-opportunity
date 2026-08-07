@@ -1,30 +1,106 @@
+/*
+ If the JS never runs, everything reading --p resolves to fully revealed. 
+*/
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --page: #DEE0E2;
+  --page-black: #000000;
+  --ink: #000;
+  --ink-dim: #52545a;
+  --ink-invert: #ffffff;
+  --ink-invert-dim: rgb(255 255 255 / 0.72);
+  --hairline: rgb(10 10 10 / 0.14);
+  --brand: #1539f5;
+  --brand-ink: #ffffff;
+
+  --font-display: var(--font-display-local), "Arial Narrow", system-ui,
+    sans-serif;
+  --font-body: var(--font-body-local), system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-mono-stack: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+  --header-h: 97px;
+  --gutter: clamp(1.25rem, 0.85rem + 1.8vw, 3.5rem);
+  --shell: 76.75rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  height: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100svh;
+  color: var(--ink);
+  background: var(--page);
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 0.85rem + 0.14vw, 1rem);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.display {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-stretch: 62%;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-box: trim-both cap alphabetic;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* In the accessibility tree, not in the paint. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
