@@ -1,0 +1,45 @@
+.section {
+  background: var(--page-black);
+  --ink: #ffffff;
+  --ink-dim: rgb(255 255 255 / 0.62);
+  --hairline: rgb(255 255 255 / 0.18);
+
+  color: var(--ink);
+  padding-block: clamp(3rem, 10vh, 8rem);
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  max-width: var(--shell);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 462px) 1fr;
+  column-gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vh, 3.5rem);
+}
+
+.scan {
+  position: sticky;
+  top: clamp(2rem, 12vh, 7rem);
+}
+
+@media (width < 60rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(2rem, 6vh, 3rem);
+  }
+
+  .scan {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    max-width: 22rem;
+    margin-inline: auto;
+    width: 100%;
+  }
+}
