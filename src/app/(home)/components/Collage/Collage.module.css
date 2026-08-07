@@ -1,0 +1,99 @@
+.collage {
+  background: var(--page);
+  padding-block: clamp(3rem, 8vh, 7rem);
+  /* no gutter: the margins are baked into the tile percentages */
+}
+
+.stage {
+  position: relative;
+  /* fixed ratio keeps every x/y true and reserves the box (no CLS) */
+  aspect-ratio: var(--stage-ratio);
+}
+
+.tile,
+.centre {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1%);
+  aspect-ratio: var(--ratio);
+  border-radius: clamp(6px, 0.8vw, 12px);
+  overflow: hidden;
+}
+
+.tileMedia,
+.centreMedia {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.centre {
+  border-radius: clamp(8px, 1vw, 16px);
+}
+
+/* Base state = finished state; the blocks below only subtract. */
+.tile {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes tile-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2.5rem, 0) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .tile {
+      animation: tile-in linear both;
+      animation-timeline: view();
+      /* stagger from --t, computed from the data */
+      animation-range: entry calc(var(--t) * 30%) entry
+        calc(var(--t) * 30% + 55%);
+    }
+  }
+
+  /* Firefox fallback, driven by --p */
+  @supports not (animation-timeline: view()) {
+    .tile {
+      --local: clamp(0, calc((var(--p) - var(--t) * 0.3) / 0.4), 1);
+      opacity: var(--local);
+      transform: translate3d(0, calc((1 - var(--local)) * 2.5rem), 0)
+        scale(calc(0.94 + var(--local) * 0.06));
+    }
+  }
+}
+
+/* Below 48rem the scatter becomes a two-column grid. */
+@media (width < 48rem) {
+  /* the grid has no baked margins, so the gutter returns */
+  .collage {
+    padding-inline: var(--gutter);
+  }
+
+  .stage {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.75rem, 3vw, 1.25rem);
+    align-items: center;
+  }
+
+  .tile,
+  .centre {
+    position: static;
+    width: auto;
+  }
+
+  /* video leads, full width */
+  .centre {
+    grid-column: 1 / -1;
+  }
+}
