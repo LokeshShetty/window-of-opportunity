@@ -3,8 +3,6 @@ import type { IconProps } from "./types";
 export function ChatIcon({ size = 28, className }: IconProps) {
   return (
     <svg
-      /* 31 x 28 — non-square, so height drives the size and width follows the
-         intrinsic ratio rather than being forced into a square box. */
       width={(size * 31) / 28}
       height={size}
       viewBox="0 0 31 28"
