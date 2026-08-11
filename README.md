@@ -24,7 +24,7 @@ live on - https://window-of-opportunity-rust.vercel.app/
 
 ## With another week
 
-- Re-encode the two ambient videos (20MB of the remaining 22MB) and serve
+- Re-encode the two ambient videos (19MB of the remaining 29MB) and serve
   AV1/WebM with H.264 fallback. They are the only assets that still hurt on a
   throttled connection.
 - Finish the theming pass: a handful of colors are still literals. The role

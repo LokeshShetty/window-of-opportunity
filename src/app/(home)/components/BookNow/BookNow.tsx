@@ -1,17 +1,17 @@
-import Image from "next/image";
 import { PillButton } from "@/components/PillButton/PillButton";
 import styles from "./BookNow.module.css";
 
 export function BookNow() {
   return (
     <section className={styles.section} aria-labelledby="final-heading">
-      <Image
+      <img
         className={styles.media}
-        src="/images/final-cta.jpg"
+        src="/images/final-cta.svg"
         alt=""
-        fill
-        sizes="100vw"
+        width={1514}
+        height={937}
         loading="lazy"
+        decoding="async"
       />
 
       <div className={styles.content}>
