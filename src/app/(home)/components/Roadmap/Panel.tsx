@@ -1,5 +1,5 @@
+import Image from "next/image";
 import type { CSSProperties } from "react";
-import type { RoadmapPanel } from "./types";
 import styles from "./Roadmap.module.css";
 import type { PanelProps } from "./types";
 
@@ -17,14 +17,13 @@ export function Panel({
 
   return (
     <article className={styles.panel} style={{ background: panel.color }}>
-      <img
+      <Image
         className={styles.media}
         src={panel.src}
         alt=""
-        width={1513}
-        height={950}
+        fill
+        sizes="100vw"
         loading={first ? "eager" : "lazy"}
-        decoding="async"
       />
 
       <div className={styles.lines}>

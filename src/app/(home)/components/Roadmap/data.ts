@@ -3,7 +3,7 @@ import type { RoadmapConnector, RoadmapPanel } from "./types";
 export const roadmapPanels: RoadmapPanel[] = [
   {
     id: "talking",
-    src: "/images/roadmap-1.svg",
+    src: "/images/roadmap-1.jpg",
     color: "linear-gradient(#335d81, #034181)",
     lines: [
       {
@@ -17,7 +17,7 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
   {
     id: "but-most",
-    src: "/images/roadmap-2.svg",
+    src: "/images/roadmap-2.jpg",
     color: "linear-gradient(#021780, #020f69)",
     lines: [
       {
@@ -32,7 +32,7 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
   {
     id: "not-listening",
-    src: "/images/roadmap-3.svg",
+    src: "/images/roadmap-3.jpg",
     color: "linear-gradient(#021780, #020f69)",
     lines: [
       { id: "l4", tokens: ["Health", "systems"], x: 62, y: 35, gap: 40 },
@@ -41,7 +41,7 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
   {
     id: "we-built-one",
-    src: "/images/roadmap-4.svg",
+    src: "/images/roadmap-4.jpg",
     color: "linear-gradient(#120101, #4f1811)",
     lines: [
       {
@@ -54,7 +54,7 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
   {
     id: "informed",
-    src: "/images/roadmap-5.svg",
+    src: "/images/roadmap-5.jpg",
     color: "linear-gradient(#b7441d, #ba5319)",
     lines: [
       { id: "l7", tokens: ["Every", "insight", "informed"], x: 57, y: 35 },
@@ -63,7 +63,7 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
   {
     id: "compounds",
-    src: "/images/roadmap-6.svg",
+    src: "/images/roadmap-6.jpg",
     color: "linear-gradient(#aca083, #a09579)",
     lines: [
       {
@@ -85,7 +85,7 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
   {
     id: "physiology",
-    src: "/images/roadmap-7.svg",
+    src: "/images/roadmap-7.jpg",
     color: "linear-gradient(#ad2c05, #c04606)",
     lines: [
       {

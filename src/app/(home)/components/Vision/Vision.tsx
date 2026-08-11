@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { PlusIcon } from "@/components/icons";
 import { CopyBlock } from "@/components/CopyBlock/CopyBlock";
 import { visionCards } from "./data";
@@ -27,14 +28,13 @@ export function Vision() {
             // loading color
             style={{ background: card.color }}
           >
-            <img
+            <Image
               className={styles.cardMedia}
               src={card.src}
               alt=""
-              width={588}
-              height={608}
+              fill
+              sizes="(width < 48rem) 92vw, 597px"
               loading="lazy"
-              decoding="async"
             />
 
             <div className={styles.cardFooter}>
