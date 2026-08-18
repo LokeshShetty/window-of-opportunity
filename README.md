@@ -6,11 +6,12 @@ Next.js 16 + TypeScript, plain CSS Modules. No other dependencies.
 npm install && npm run dev
 ```
 
+Live at https://window-of-opportunity-rust.vercel.app/
+
 ## How it works
 
-live on - https://window-of-opportunity-rust.vercel.app/
-
-- Roadmap content and connector config live in `src/data/roadmap.ts`.
+- Roadmap content and connector config live in
+  `src/app/(home)/components/Roadmap/data.ts`.
 - Word reveal is CSS scroll-driven (`view-timeline` per panel). Firefox still
   flags `animation-timeline`, so a `--p` custom property written once per rAF
   covers it.
@@ -24,30 +25,29 @@ live on - https://window-of-opportunity-rust.vercel.app/
 
 ## With another week
 
-- Re-encode the two ambient videos (19MB of the remaining 29MB) and serve
-  AV1/WebM with H.264 fallback. They are the only assets that still hurt on a
-  throttled connection.
-- Finish the theming pass: a handful of colors are still literals. The role
-  tokens already invert the dark section by reassigning three variables, so a
-  full dark theme is mostly an audit, not a rebuild.
-- Rework the connector drawing. The words run on CSS scroll timelines, but SVG
-  paths can't carry one, so the curves use a small rAF loop. I'd prototype
-  CSS motion-path or per-segment elements to get the whole section off the
-  main thread.
-- Wire the Vision card expanders to real content panels.
+- Compress the two background videos. They are 19MB of the 29MB total and the
+  only thing that still feels slow on a throttled connection.
+- Finish the colour pass. A few colours are still written out by hand instead
+  of using the shared variables, so a full dark theme is an audit rather than
+  a rebuild.
+- Draw the connector lines the same way the words are revealed. The words are
+  pure CSS; the lines need a little JavaScript because SVG paths can't use CSS
+  scroll animations. The fix I would try is to move the animation onto a plain
+  `div` around each line and let the path follow along, which drops the scroll
+  listener. Finding where the words sit would still need JavaScript. It is not
+  slow — it is two mechanisms doing one job.
+- Give the "+" buttons on the Vision cards something to open.
 
 ## Skipped on purpose
 
-- The Vision "+" buttons don't open anything. They're an affordance drawn in
-  the design with nothing behind it; wiring six overlays didn't serve the
-  70/30 weighting. The accordions got invented copy instead, because a plus
-  that expands to nothing reads as a bug.
-- No hamburger menu at mobile. The nav scrolls horizontally in its own track;
-  shipping a menu button without a drawer is a dead control.
-- No animation on the circle in the "straight lines" section. The brief's
-  motion requirements are the roadmap and the hero; a static ring matches the
-  comp and carries no risk.
-- Pill extras: cross-tab sync and Escape-to-close were built, then cut. A few
-  lines each, but nobody asked for them.
-- No fake booking flow or chat. Every CTA anchors to the Find Us section
-  rather than pretending a backend exists.
+- The Vision "+" buttons don't open anything. The design draws the button but
+  nothing behind it, and inventing content for six cards was not worth the
+  time on a section neither task is graded on.
+- No hamburger menu on mobile. The nav scrolls sideways in its own track, and
+  a menu button with no drawer behind it is a button that does nothing.
+- No animation on the circle in the "straight lines" section. The brief asks
+  for motion in the roadmap and the hero; a static ring matches the design.
+- Pill extras: syncing across tabs and closing on Escape were both built, then
+  cut. Small, but nobody asked for them.
+- No fake booking flow or chat. Every button scrolls to the Find Us section
+  instead of pretending there is a backend.
