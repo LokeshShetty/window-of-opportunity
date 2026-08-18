@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, type RefObject } from "react";
-// This is the Firefox fallback for the scroll progress hook,
-// which uses IntersectionObserver.
+// This is the Firefox fallback for the scroll progress hook, rAF
 // It is not needed in Chrome or Safari, which support the native CSS property `animation-timeline`.
 export function useScrollProgress(ref: RefObject<HTMLElement | null>): void {
   useEffect(() => {
