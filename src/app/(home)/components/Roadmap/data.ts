@@ -1,5 +1,6 @@
 import type { RoadmapConnector, RoadmapPanel } from "./types";
 
+// color is sampled from the artwork, so a panel looks right before its image lands
 export const roadmapPanels: RoadmapPanel[] = [
   {
     id: "talking",
@@ -98,6 +99,8 @@ export const roadmapPanels: RoadmapPanel[] = [
   },
 ];
 
+// which words to join, not where they are — nothing here breaks on resize.
+// negative index counts from the end, so -1 is the last word.
 export const roadmapConnectors: RoadmapConnector[] = [
   {
     from: "l2",
@@ -123,7 +126,7 @@ export const roadmapConnectors: RoadmapConnector[] = [
     shape: "line",
     fromWord: 1,
     fromSide: "middle",
-    toWord: [1, 2],
+    toWord: [1, 2], //gap between 1 and 2 word
     toSide: "middle",
   },
 ];

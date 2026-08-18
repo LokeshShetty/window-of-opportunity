@@ -10,6 +10,7 @@ export function Panel({
   wordTotal,
   registerLine,
 }: PanelProps) {
+  // where each line's words start in this panel's own count
   const panelTokens = panel.lines.reduce((n, l) => n + l.tokens.length, 0);
   const lineStarts = panel.lines.map((_, i) =>
     panel.lines.slice(0, i).reduce((n, l) => n + l.tokens.length, 0),
@@ -40,17 +41,21 @@ export function Panel({
               } as CSSProperties
             }
           >
+            {/* the box that hugs the words — this is what gets measured */}
             <span
               ref={(el) => registerLine(line.id, el)}
               className={styles.lineInner}
             >
               {line.tokens.map((token, i) => {
                 const index = lineStarts[lineIndex] + i;
+                // --t is the word's place in the section, --tp its place in
+                // this panel; the CSS reads them to stagger the reveal
                 const style = {
                   "--t": (wordOffset + index) / wordTotal,
                   "--tp": panelTokens > 1 ? index / (panelTokens - 1) : 0,
                 } as CSSProperties;
 
+                // a word fades in; a gap token draws a short rule instead
                 return typeof token === "string" ? (
                   <span key={i} data-word className={styles.word} style={style}>
                     {token}

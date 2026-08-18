@@ -8,12 +8,19 @@ import { useConnectors } from "./useConnectors";
 import styles from "./Roadmap.module.css";
 
 export function Roadmap() {
+  // the box every connector is measured inside
   const sectionRef = useRef<HTMLElement>(null);
+  // each line's element, so we can find where its words sit
   const lineRefs = useRef<Record<string, HTMLSpanElement | null>>({});
 
+  // Firefox only: writes scroll progress to --p so the words can still fade in
   useScrollProgress(sectionRef);
+
+  // paths = the curves to draw, viewBox = section size, registerPath = hands
+  // each <path> to the loop that reveals it on scroll
   const { paths, viewBox, registerPath } = useConnectors(sectionRef, lineRefs);
 
+  // each word's place in the section, used to stagger the fallback reveal
   const tokensIn = (p: (typeof roadmapPanels)[number]) =>
     p.lines.reduce((n, l) => n + l.tokens.length, 0);
   const wordTotal = roadmapPanels.reduce((n, p) => n + tokensIn(p), 0);
@@ -29,6 +36,7 @@ export function Roadmap() {
       id="roadmap"
       aria-labelledby="roadmap-heading"
     >
+      {/* the section is titled by its artwork, so screen readers get it here */}
       <h2 id="roadmap-heading" className="visually-hidden">
         Your body is talking
       </h2>
@@ -40,6 +48,7 @@ export function Roadmap() {
           first={i === 0}
           wordOffset={panelStarts[i]}
           wordTotal={wordTotal}
+          // stores the line element so the connectors know where to start and end
           registerLine={(id, el) => {
             lineRefs.current[id] = el;
           }}

@@ -20,6 +20,7 @@ export function useConnectors(
   const [paths, setPaths] = useState<ConnectorPath[]>([]);
   const [viewBox, setViewBox] = useState<string | null>(null);
 
+  // keeps hold of each rendered <path> so the draw loop can write to it
   const registerPath = useCallback(
     (index: number) => (el: SVGPathElement | null) => {
       pathRefs.current[index] = el;
@@ -27,6 +28,7 @@ export function useConnectors(
     [],
   );
 
+  // works out every curve from where the words have actually landed
   const measure = useCallback(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -34,6 +36,7 @@ export function useConnectors(
     const base = section.getBoundingClientRect();
     if (base.width === 0 || base.height === 0) return;
 
+    // the box of a word, or of the gap between two words
     const rectOf = (
       id: string,
       word?: number | [number, number],
@@ -41,6 +44,7 @@ export function useConnectors(
       const el = lineRefs.current[id];
       if (!el) return null;
 
+      // measured against the section, not the screen, so scrolling can't change it
       const relative = (r: DOMRect) =>
         new DOMRect(r.left - base.left, r.top - base.top, r.width, r.height);
 
@@ -77,6 +81,7 @@ export function useConnectors(
 
       const { from, to } = endpoints(a, b, c, base.width / 1512);
 
+      // skip anything that would end up pointing backwards
       if (to.y <= from.y) continue;
 
       next.push({
@@ -96,6 +101,7 @@ export function useConnectors(
     const section = sectionRef.current;
     if (!section) return;
 
+    // remeasure whenever anything moves the words: resize, rewrap, font swap
     const observer = new ResizeObserver(measure);
     observer.observe(section);
     for (const el of Object.values(lineRefs.current))
@@ -115,8 +121,10 @@ export function useConnectors(
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || paths.length === 0) return;
+    // reduced motion: leave the lines fully drawn and still
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // ?lines freezes them drawn and outlines the anchors, for checking shape
     if (new URLSearchParams(window.location.search).has("lines")) {
       section.setAttribute("data-debug-lines", "");
       return;
@@ -124,6 +132,7 @@ export function useConnectors(
 
     let frame = 0;
 
+    // expensive, so measured once per shape change instead of every frame
     const lengths = paths.map((_, i) => {
       const el = pathRefs.current[i];
       return el ? el.getTotalLength() : 0;
@@ -139,9 +148,11 @@ export function useConnectors(
         const el = pathRefs.current[i];
         if (!el) continue;
 
+        // timed off where the line ENDS, so one finishes before the next starts
         const target = rect.top + paths[i].targetY;
         const progress = Math.min(1, Math.max(0, (viewport - target) / span));
 
+        // dash as long as the line itself, pushed off the end, then slid back in
         if (progress >= 1) {
           el.style.strokeDasharray = "none";
           el.style.strokeDashoffset = "0";
@@ -152,6 +163,7 @@ export function useConnectors(
       }
     };
 
+    // one write per frame, however many scroll events arrive
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(write);
     };
